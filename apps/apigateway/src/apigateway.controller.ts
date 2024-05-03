@@ -4,16 +4,16 @@ import { ClientKafka } from '@nestjs/microservices';
 import { CreateOrderDto } from '@app/common/DTO';
 
 @Controller()
-export class ApigatewayController implements OnModuleInit {
+export class ApigatewayController {
   constructor(@Inject(ORDERS_SERVICE) private readonly client: ClientKafka) {}
 
-  async onModuleInit() {
-    this.client.subscribeToResponseOf('orders.create_order');
-    await this.client.connect();
-  }
+  // async onModuleInit() {
+  //   await this.client.connect();
+  //   this.client.subscribeToResponseOf('create_order.reply');
+  // }
 
   @Post()
   CreateOrder(@Body() data: CreateOrderDto) {
-    return this.client.emit('create_order', data);
+    return this.client.send('create_order', data);
   }
 }

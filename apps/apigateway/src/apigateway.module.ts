@@ -4,11 +4,11 @@ import { ApigatewayService } from './apigateway.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ORDERS_SERVICE } from '@app/common';
-import { Partitioners } from 'kafkajs';
 import * as Joi from 'joi';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: './apps/apigateway/.env',
       validationSchema: Joi.object({
         KAFKA_URL_BROKER: Joi.string().required(),
@@ -22,12 +22,13 @@ import * as Joi from 'joi';
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'orders',
+              clientId: 'apigateway',
               brokers: [configService.get<string>('KAFKA_URL_BROKER')],
             },
-            producerOnlyMode: true,
-            consumer: { groupId: 'orders-consumer' },
-            producer: { createPartitioner: Partitioners.LegacyPartitioner },
+            consumer: {
+              groupId: 'apigateway-consumer',
+              allowAutoTopicCreation: true,
+            },
           },
         }),
         inject: [ConfigService],
