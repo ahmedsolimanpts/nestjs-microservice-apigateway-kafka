@@ -7,8 +7,13 @@ import { CreateOrderDto } from '@app/common/DTO';
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @MessagePattern('create_order')
+  @MessagePattern('create-order')
   createOrder(@Payload() data: CreateOrderDto) {
     return data;
+  }
+
+  @MessagePattern('get-orders')
+  getOrder() {
+    return { name: 'hi' };
   }
 }

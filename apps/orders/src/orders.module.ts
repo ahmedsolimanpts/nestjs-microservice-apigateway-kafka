@@ -10,6 +10,7 @@ import * as Joi from 'joi';
       envFilePath: './apps/orders/.env',
       validationSchema: Joi.object({
         KAFKA_URL_BROKER: Joi.string().required(),
+        KAFKA_ORDERS_GROUP_ID: Joi.string().required(),
       }),
     }),
   ],

@@ -12,12 +12,10 @@ async function bootstrap() {
       transport: Transport.KAFKA,
       options: {
         client: {
-          clientId: 'orders',
           brokers: [configService.get<string>('KAFKA_URL_BROKER')],
         },
         consumer: {
-          groupId: 'orders-consumer',
-          allowAutoTopicCreation: true,
+          groupId: configService.get<string>('KAFKA_ORDERS_GROUP_ID'),
         },
       },
     },
