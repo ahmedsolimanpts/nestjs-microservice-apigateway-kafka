@@ -9,11 +9,11 @@ export class OrdersController {
 
   @MessagePattern('create-order')
   createOrder(@Payload() data: CreateOrderDto) {
-    return data;
+    return this.ordersService.create(data);
   }
 
   @MessagePattern('get-orders')
   getOrder() {
-    return { name: 'hi' };
+    return this.ordersService.findAll();
   }
 }

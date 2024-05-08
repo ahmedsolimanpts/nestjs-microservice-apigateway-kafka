@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm update
+# RUN npm update
 
 RUN npm install
 
@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm update
+# RUN npm update
 
 RUN npm install --only=production
 

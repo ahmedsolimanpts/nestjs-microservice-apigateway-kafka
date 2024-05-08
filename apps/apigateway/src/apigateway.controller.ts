@@ -12,9 +12,7 @@ export class ApigatewayController implements OnModuleInit {
   async onModuleInit() {
     this.client = new ClientKafka({
       client: {
-        clientId: this.configService.get<string>(
-          'KAFKA_API_GATEWAY_ORDER_CLIENT_ID',
-        ),
+        clientId: 'apigateway',
         brokers: [this.configService.get<string>('KAFKA_URL_BROKER')],
       },
       consumer: {
